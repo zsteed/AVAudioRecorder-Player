@@ -20,9 +20,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBOutlet weak var tableView: UITableView!
     
     var timer = NSTimer()
+    var progressTimer = NSTimer()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        uploadButton.backgroundColor = UIColor.blueColor()
         AudioController.sharedInstance.checkHeadphones()
         AudioController.sharedInstance.notificationCheck()
         stopButton.enabled = false
@@ -94,16 +96,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         AudioController.sharedInstance.play(RecordingsController.sharedInstance.recordings[indexPath.row])
         
         
-        if let player = AudioController.sharedInstance.player {
-            if player.playing {
-                player.pause()
-            }
-        }
-        
         if let cell = tableView.cellForRowAtIndexPath(indexPath) as? RecordingCellTableViewCell {
-            cell.updateProgress()
+            cell.setProgressIndicator()
         }
     }
+    
+    
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {

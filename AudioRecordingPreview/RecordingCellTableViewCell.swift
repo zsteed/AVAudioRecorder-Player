@@ -37,38 +37,13 @@ class RecordingCellTableViewCell: UITableViewCell {
     
     func updateProgress(timer:NSTimer) {
         if let player = AudioController.sharedInstance.player {
-
-        if progressView.progress < Float(player.duration % 60) {
-            
-            dispatch_async(dispatch_get_main_queue(), {
+            if progressView.progress < Float(player.duration % 60) {
+                dispatch_async(dispatch_get_main_queue(), {
                     self.progressView.setProgress(Float(player.duration % 60), animated: true)
-                
-            })
-        }
-        
-//        if progressView.progress == 1.0 {
-//            progressView.hidden = true
-//        }
+                })
+            }
         }
     }
-    
-//    func timeIntervalsForTimer(time:NSTimer) {
-//        if let player = AudioController.sharedInstance.player {
-//            if player.playing {
-//                progressView.progress = Float(player.duration)
-//                player.duration
-//            } else {
-//                progressView.setProgress(0.0, animated: true)
-//            }
-//            
-//            self.progressView.progress = 0.1
-//            
-//            if progressView.progress == 1.0 {
-//                
-//            }
-//        }
-//    }
-    
 
     
     // Call in Table View Data Source

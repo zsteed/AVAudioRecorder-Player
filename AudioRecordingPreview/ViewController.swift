@@ -58,7 +58,20 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             let sec = Int(recorder.currentTime % 60)
             let s = String(format: "%02d:%02d", min, sec)
             timeLabel.text = s
-        }        
+            recorder.updateMeters()
+            let apc0 = recorder.averagePowerForChannel(0)
+            let peak0 = recorder.peakPowerForChannel(0)
+            dispatch_async(dispatch_get_main_queue(), { 
+                self.progressViewMeter.progress = self.adaptPowerForChannel(apc0)
+                print("\(apc0)  &&&&   \(peak0)")
+            })
+        }
+    }
+    
+    func adaptPowerForChannel(rawValue:Float) ->Float {
+        let maxPowerLevel = Float(40.0)
+        let adaptedPowerLevel = (rawValue + maxPowerLevel) / maxPowerLevel
+        return adaptedPowerLevel
     }
     
 
@@ -69,6 +82,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         timer.invalidate()
         dispatch_async(dispatch_get_main_queue()) {
             AudioController.sharedInstance.listRecordings()
+            self.progressViewMeter.progress = 0.0
             self.tableView.reloadData()
         }
     }

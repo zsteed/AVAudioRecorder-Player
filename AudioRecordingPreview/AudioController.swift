@@ -95,6 +95,8 @@ class AudioController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate 
                 let s = String(format: "%02d:%02d", min, sec)
                 timeDisplay?.text = s
                 recorder.updateMeters()
+//                let apc0 = recorder.averagePowerForChannel(0)
+//                let peak0 = recorder.peakPowerForChannel(0)
             }
         }
     }
@@ -138,8 +140,8 @@ class AudioController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate 
                 recorder = try AVAudioRecorder(URL: soundFile, settings: settings)
                 if let recorder = recorder {
                     recorder.delegate = self
-                    recorder.meteringEnabled = true
                     recorder.prepareToRecord()
+                    recorder.meteringEnabled = true
                 }
             }
         } catch let error as NSError {

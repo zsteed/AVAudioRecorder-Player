@@ -12,17 +12,22 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
     // MARK: - Outlets
     
+    @IBOutlet weak var uploadButton: UIButton!
     @IBOutlet weak var recordButton: UIButton!
     @IBOutlet weak var stopButton: UIButton!
     @IBOutlet weak var progressViewMeter: UIProgressView!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
+    var timer = NSTimer()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        AudioController.sharedInstance.setSessionPlayback()
+        AudioController.sharedInstance.checkHeadphones()
+        AudioController.sharedInstance.notificationCheck()
         stopButton.enabled = false
-        dispatch_async(dispatch_get_main_queue()) { 
+        progressViewMeter.setProgress(0.0, animated: true)
+        dispatch_async(dispatch_get_main_queue()) {
             AudioController.sharedInstance.listRecordings()
             self.tableView.reloadData()
         }
@@ -36,14 +41,30 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
        AudioController.sharedInstance.record()
         recordButton.enabled = false
         stopButton.enabled = true
+        timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(timeIntervalsForTimer(_:)), userInfo: nil, repeats: true)
     }
     
+    
+    @IBAction func uploadButtonTapped(sender: AnyObject) {
+        
+    }
+    
+    
+    func timeIntervalsForTimer(time:NSTimer) {
+        if let recorder = AudioController.sharedInstance.recorder {
+            let min = Int(recorder.currentTime / 60)
+            let sec = Int(recorder.currentTime % 60)
+            let s = String(format: "%02d:%02d", min, sec)
+            timeLabel.text = s
+        }        
+    }
     
 
     @IBAction func stopButtonTapped(sender: AnyObject) {
         AudioController.sharedInstance.stop()
         recordButton.enabled = true
         stopButton.enabled = false
+        timer.invalidate()
         dispatch_async(dispatch_get_main_queue()) {
             AudioController.sharedInstance.listRecordings()
             self.tableView.reloadData()
@@ -66,6 +87,22 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         cell.updateCellWithData(indexPath)
         
         return cell
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        AudioController.sharedInstance.play(RecordingsController.sharedInstance.recordings[indexPath.row])
+        
+        
+        if let player = AudioController.sharedInstance.player {
+            if player.playing {
+                player.pause()
+            }
+        }
+        
+        if let cell = tableView.cellForRowAtIndexPath(indexPath) as? RecordingCellTableViewCell {
+            cell.updateProgress()
+        }
     }
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {

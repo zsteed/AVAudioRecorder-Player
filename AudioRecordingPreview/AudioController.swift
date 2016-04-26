@@ -22,26 +22,66 @@ class AudioController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate 
     var recorder: AVAudioRecorder?
     var soundFile: NSURL?
     var labelString: String?
-    var timeDisplaly: UILabel?
+    var timeDisplay: UILabel?
     
     static let sharedInstance = AudioController()
     
     // MARK: - View did load methods
     
-    func setSessionPlayback() {
-        let session = AVAudioSession.sharedInstance()
-        
-        do  {
-            try session.setCategory(AVAudioSessionCategoryRecord)
-        } catch let error as NSError {
-            print("Error on line \(#line) for set category error \(error.localizedDescription)")
+    func checkHeadphones() {
+        let currentRoute = AVAudioSession.sharedInstance().currentRoute
+        print(currentRoute)
+        if currentRoute.outputs.count > 0 {
+            for description in currentRoute.outputs {
+                if description.portType == AVAudioSessionPortHeadphones {
+                    print("headphones are plugged in")
+                    break
+                } else {
+                    print("headphones are unplugged")
+                }
+            }
+        } else {
+            print("checking headphones requires a connection to a device")
         }
+    }
+    
+    
+    func routeChange(notification:NSNotification) {
+        print("routeChange \(notification.userInfo)")
         
-        do {
-            try session.setActive(true)
-        } catch let error as NSError {
-            print("Error on line \(#line) for set active error \(error.localizedDescription)")
+        if let userInfo = notification.userInfo {
+            //print("userInfo \(userInfo)")
+            if let reason = userInfo[AVAudioSessionRouteChangeReasonKey] as? UInt {
+                //print("reason \(reason)")
+                switch AVAudioSessionRouteChangeReason(rawValue: reason)! {
+                case AVAudioSessionRouteChangeReason.NewDeviceAvailable:
+                    print("NewDeviceAvailable")
+                    print("did you plug in headphones?")
+                    checkHeadphones()
+                case AVAudioSessionRouteChangeReason.OldDeviceUnavailable:
+                    print("OldDeviceUnavailable")
+                    print("did you unplug headphones?")
+                    checkHeadphones()
+                case AVAudioSessionRouteChangeReason.CategoryChange:
+                    print("CategoryChange")
+                case AVAudioSessionRouteChangeReason.Override:
+                    print("Override")
+                case AVAudioSessionRouteChangeReason.WakeFromSleep:
+                    print("WakeFromSleep")
+                case AVAudioSessionRouteChangeReason.Unknown:
+                    print("Unknown")
+                case AVAudioSessionRouteChangeReason.NoSuitableRouteForCategory:
+                    print("NoSuitableRouteForCategory")
+                case AVAudioSessionRouteChangeReason.RouteConfigurationChange:
+                    print("RouteConfigurationChange")
+                    
+                }
+            }
         }
+    }
+    
+    func notificationCheck() {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(AudioController.routeChange(_:)), name:AVAudioSessionRouteChangeNotification, object:nil)
     }
 
     
@@ -52,7 +92,8 @@ class AudioController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate 
             if recorder.recording {
                 let min = Int(recorder.currentTime / 60)
                 let sec = Int(recorder.currentTime % 60)
-                timeDisplaly?.text = String(format: "%02d:%02d", min, sec)
+                let s = String(format: "%02d:%02d", min, sec)
+                timeDisplay?.text = s
                 recorder.updateMeters()
             }
         }
@@ -151,16 +192,8 @@ class AudioController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate 
             print("Recording. Recorder == nil, on line \(#line) of function \(#function)")
             self.setUpPermission(true)
         } else {
-            self.setUpPermission(false)
+            self.setUpPermission(true)
         }
-        
-//        if recorder != nil && recorder!.recording {
-//            print("Pausing on line \(#line) of function \(#function)")
-//            recorder!.pause()
-//        } else {
-//            print("Recording on line \(#line) of function \(#function)")
-//            self.recordWithPermission(false)
-//        }
     }
     
     func stop() {
@@ -186,21 +219,12 @@ class AudioController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate 
         }
     }
     
-    func play() {
-        var url:NSURL?
-        if self.recorder != nil {
-            url = self.recorder!.url
-        } else {
-            url = self.soundFile!
-        }
-        print("Playing URL on line \(#line) of function \(#function)")
-        
+    func play(url:NSURL) {
         do {
-            self.player = try AVAudioPlayer(contentsOfURL: url!)
+            self.player = try AVAudioPlayer(contentsOfURL: url)
             if let player = player {
                 player.delegate = self
                 player.prepareToPlay()
-                player.volume = 1.0
                 player.play()
             }
         } catch let error as NSError {
@@ -208,6 +232,7 @@ class AudioController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate 
             print("Error - \(#line)\(error.localizedDescription)")
         }
     }
+    
     
     
     // MARK: - Audio Player Delegate
@@ -236,9 +261,9 @@ class AudioController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate 
     }
     
     
+   
     
+  
     
-    
-    
-    
+
 }

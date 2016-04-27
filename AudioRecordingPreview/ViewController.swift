@@ -14,6 +14,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     @IBOutlet weak var uploadButton: UIButton!
     @IBOutlet weak var recordButton: UIButton!
+    @IBOutlet weak var pauseButton: UIButton!
     @IBOutlet weak var stopButton: UIButton!
     @IBOutlet weak var progressViewMeter: UIProgressView!
     @IBOutlet weak var timeLabel: UILabel!
@@ -27,7 +28,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         uploadButton.backgroundColor = UIColor.blueColor()
         AudioController.sharedInstance.checkHeadphones()
         AudioController.sharedInstance.notificationCheck()
+        
         stopButton.enabled = false
+        pauseButton.enabled = false
         progressViewMeter.setProgress(0.0, animated: true)
         dispatch_async(dispatch_get_main_queue()) {
             AudioController.sharedInstance.listRecordings()
@@ -35,22 +38,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
     }
     
-    
-    
-    // MARK: - Buttons Tapped
-    
-    @IBAction func recordButtonTapped(sender: AnyObject) {
-       AudioController.sharedInstance.record()
-        recordButton.enabled = false
-        stopButton.enabled = true
-        timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(timeIntervalsForTimer(_:)), userInfo: nil, repeats: true)
-    }
-    
-    
-    @IBAction func uploadButtonTapped(sender: AnyObject) {
-        
-    }
-    
+    // MARK: - Methods
     
     func timeIntervalsForTimer(time:NSTimer) {
         if let recorder = AudioController.sharedInstance.recorder {
@@ -61,9 +49,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             recorder.updateMeters()
             let apc0 = recorder.averagePowerForChannel(0)
             let peak0 = recorder.peakPowerForChannel(0)
-            dispatch_async(dispatch_get_main_queue(), { 
+            dispatch_async(dispatch_get_main_queue(), {
                 self.progressViewMeter.progress = self.adaptPowerForChannel(apc0)
-                print("\(apc0)  &&&&   \(peak0)")
             })
         }
     }
@@ -74,15 +61,51 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         return adaptedPowerLevel
     }
     
+    
+    
+    // MARK: - Buttons Tapped
+    
+    
+    @IBAction func pauseButtonTapped(sender: AnyObject) {
+        if let recorder = AudioController.sharedInstance.recorder {
+            if recorder.recording {
+                recorder.pause()
+                timer.invalidate()
+                stopButton.enabled = true
+                pauseButton.setTitle("Resume", forState: .Normal)
+            } else {
+                pauseButton.setTitle("Pause", forState: .Normal)
+                AudioController.sharedInstance.setUpPermission(false)
+                timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(timeIntervalsForTimer(_:)), userInfo: nil, repeats: true)
+            }
+        }
+    }
+    
+    
+    @IBAction func recordButtonTapped(sender: AnyObject) {
+       AudioController.sharedInstance.record()
+        recordButton.enabled = false
+        stopButton.enabled = true
+        pauseButton.enabled = true
+        
+        timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(timeIntervalsForTimer(_:)), userInfo: nil, repeats: true)
+    }
+    
+    
+    @IBAction func uploadButtonTapped(sender: AnyObject) {
+        
+    }
 
     @IBAction func stopButtonTapped(sender: AnyObject) {
         AudioController.sharedInstance.stop()
         recordButton.enabled = true
         stopButton.enabled = false
+        pauseButton.enabled = false
         timer.invalidate()
         dispatch_async(dispatch_get_main_queue()) {
             AudioController.sharedInstance.listRecordings()
             self.progressViewMeter.progress = 0.0
+            self.timeLabel.text = "00:00"
             self.tableView.reloadData()
         }
     }

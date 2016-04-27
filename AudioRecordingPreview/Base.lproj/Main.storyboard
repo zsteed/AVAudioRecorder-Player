@@ -28,21 +28,28 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="600" height="103"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pXf-og-g2G">
-                                                        <rect key="frame" x="0.0" y="0.0" width="200" height="103"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="150" height="103"/>
                                                         <state key="normal" title="Record"/>
                                                         <connections>
                                                             <action selector="recordButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="AxG-rs-u3A"/>
                                                         </connections>
                                                     </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tZI-QL-5iY">
+                                                        <rect key="frame" x="150" y="0.0" width="150" height="103"/>
+                                                        <state key="normal" title="Pause"/>
+                                                        <connections>
+                                                            <action selector="pauseButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="KOG-vQ-noH"/>
+                                                        </connections>
+                                                    </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eNb-QU-D01">
-                                                        <rect key="frame" x="200" y="0.0" width="200" height="103"/>
-                                                        <state key="normal" title="Stop"/>
+                                                        <rect key="frame" x="300" y="0.0" width="150" height="103"/>
+                                                        <state key="normal" title="Save"/>
                                                         <connections>
                                                             <action selector="stopButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Me9-Jq-YGN"/>
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YFc-kV-yIs">
-                                                        <rect key="frame" x="400" y="0.0" width="200" height="103"/>
+                                                        <rect key="frame" x="450" y="0.0" width="150" height="103"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                         <nil key="highlightedColor"/>
@@ -128,6 +135,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="NbM-Cs-Yx9"/>
                     <connections>
+                        <outlet property="pauseButton" destination="tZI-QL-5iY" id="eko-2n-Z4G"/>
                         <outlet property="progressViewMeter" destination="Tqh-Yo-FNa" id="szg-yd-LTJ"/>
                         <outlet property="recordButton" destination="pXf-og-g2G" id="adj-Vs-uME"/>
                         <outlet property="stopButton" destination="eNb-QU-D01" id="yX9-rm-Iwy"/>
@@ -156,7 +164,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="F0a-PS-8mr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="877" y="380"/>
+            <point key="canvasLocation" x="838" y="380"/>
         </scene>
     </scenes>
 </document>

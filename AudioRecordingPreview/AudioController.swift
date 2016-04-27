@@ -189,13 +189,14 @@ class AudioController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate 
         if player != nil && player!.playing {
             player!.stop()
         }
-        
-        if recorder == nil {
-            print("Recording. Recorder == nil, on line \(#line) of function \(#function)")
-            self.setUpPermission(true)
-        } else {
-            self.setUpPermission(true)
-        }
+        self.setUpPermission(true)
+
+//        if recorder == nil {
+//            print("Recording. Recorder == nil, on line \(#line) of function \(#function)")
+//            self.setUpPermission(true)
+//        } else {
+//            self.setUpPermission(true)
+//        }
     }
     
     func stop() {

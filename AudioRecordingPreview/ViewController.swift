@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, CustomCellDelegate {
 
     // MARK: - Outlets
     
@@ -25,6 +25,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NetworkController.uploadAuthData { (json) in
+            
+        }
+        
         uploadButton.backgroundColor = UIColor.blueColor()
         AudioController.sharedInstance.checkHeadphones()
         AudioController.sharedInstance.notificationCheck()
@@ -48,7 +53,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             timeLabel.text = s
             recorder.updateMeters()
             let apc0 = recorder.averagePowerForChannel(0)
-            let peak0 = recorder.peakPowerForChannel(0)
+            let _ = recorder.peakPowerForChannel(0) // add to meter view 
             dispatch_async(dispatch_get_main_queue(), {
                 self.progressViewMeter.progress = self.adaptPowerForChannel(apc0)
             })
@@ -94,6 +99,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     @IBAction func uploadButtonTapped(sender: AnyObject) {
         
+        // display alert stating recording uploaded succuessfuly
     }
 
     @IBAction func stopButtonTapped(sender: AnyObject) {
@@ -101,6 +107,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         recordButton.enabled = true
         stopButton.enabled = false
         pauseButton.enabled = false
+        pauseButton.setTitle("Pause", forState: .Normal)
         timer.invalidate()
         dispatch_async(dispatch_get_main_queue()) {
             AudioController.sharedInstance.listRecordings()
@@ -110,6 +117,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
     }
     
+    
+    func cellTapped(cell: RecordingCellTableViewCell) {
+        
+        let indexPathForRow = self.tableView.indexPathForCell(cell)?.row
+        if let indexPathForRow = indexPathForRow {
+            RecordingsController.sharedInstance.myButton = indexPathForRow
+        }
+    }
     
     
     //MARK: - Table View Data Source
@@ -121,21 +136,22 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("recorderCell", forIndexPath: indexPath) as! RecordingCellTableViewCell
+        if let cell = tableView.dequeueReusableCellWithIdentifier("recorderCell", forIndexPath: indexPath) as? RecordingCellTableViewCell {
+            
+            cell.updateCellWithData(indexPath)
+            
+            if cell.buttonDelegate == nil {
+                cell.buttonDelegate = self
+            }
+            
+            return cell
+        }
         
-        cell.updateCellWithData(indexPath)
-        
-        return cell
+        return UITableViewCell()
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        AudioController.sharedInstance.play(RecordingsController.sharedInstance.recordings[indexPath.row])
-        
-        
-        if let cell = tableView.cellForRowAtIndexPath(indexPath) as? RecordingCellTableViewCell {
-            cell.setProgressIndicator()
-        }
     }
     
     

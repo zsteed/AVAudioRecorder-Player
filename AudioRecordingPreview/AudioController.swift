@@ -50,9 +50,7 @@ class AudioController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate 
         print("routeChange \(notification.userInfo)")
         
         if let userInfo = notification.userInfo {
-            //print("userInfo \(userInfo)")
             if let reason = userInfo[AVAudioSessionRouteChangeReasonKey] as? UInt {
-                //print("reason \(reason)")
                 switch AVAudioSessionRouteChangeReason(rawValue: reason)! {
                 case AVAudioSessionRouteChangeReason.NewDeviceAvailable:
                     print("NewDeviceAvailable")
@@ -80,8 +78,33 @@ class AudioController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate 
         }
     }
     
+    func handleInterruption(notification:NSNotification) {
+        if let userInfo = notification.userInfo {
+            if let reason = userInfo[AVAudioSessionInterruptionTypeKey] as? UInt {
+                switch AVAudioSessionInterruptionType(rawValue: reason)! {
+                case AVAudioSessionInterruptionType.Began:
+                    print("Recording has been interrupted!")
+                    
+                    if let recorder = recorder {
+                        if recorder.recording {
+                            recorder.pause()
+                        }
+                    }
+                    
+                case AVAudioSessionInterruptionType.Ended:
+                    print("Interruption has ended!")
+                    
+                    
+                    
+                }
+            }
+        }
+    }
+    
     func notificationCheck() {
         NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(AudioController.routeChange(_:)), name:AVAudioSessionRouteChangeNotification, object:nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(handleInterruption(_:)), name: AVAudioSessionInterruptionNotification, object: nil)
     }
 
     
@@ -95,8 +118,6 @@ class AudioController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate 
                 let s = String(format: "%02d:%02d", min, sec)
                 timeDisplay?.text = s
                 recorder.updateMeters()
-//                let apc0 = recorder.averagePowerForChannel(0)
-//                let peak0 = recorder.peakPowerForChannel(0)
             }
         }
     }
@@ -190,13 +211,6 @@ class AudioController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate 
             player!.stop()
         }
         self.setUpPermission(true)
-
-//        if recorder == nil {
-//            print("Recording. Recorder == nil, on line \(#line) of function \(#function)")
-//            self.setUpPermission(true)
-//        } else {
-//            self.setUpPermission(true)
-//        }
     }
     
     func stop() {
@@ -206,13 +220,6 @@ class AudioController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate 
         
         if let meterTimer = meterTimer {
             meterTimer.invalidate()
-        }
-        
-        let session = AVAudioSession.sharedInstance()
-        do {
-            try session.setActive(false)
-        } catch let error as NSError {
-            print(error.localizedDescription)
         }
     }
     
@@ -241,6 +248,7 @@ class AudioController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate 
     // MARK: - Audio Player Delegate
     
     func audioPlayerDidFinishPlaying(player: AVAudioPlayer, successfully flag: Bool) {
+        
         print("Finished playing audio")
     }
     

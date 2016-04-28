@@ -14,6 +14,8 @@ class RecordingsController {
     
     var recordings = [NSURL]()
     
+    var myButton: Int = 0
+    
     func readableDate(date:NSDate) -> String {
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateStyle = .MediumStyle

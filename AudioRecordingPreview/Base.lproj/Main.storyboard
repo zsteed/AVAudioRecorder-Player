@@ -86,27 +86,48 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="54.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recording Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gAC-BW-2td">
-                                                    <rect key="frame" x="8" y="0.0" width="584" height="28"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progressViewStyle="bar" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="erF-9y-sg6">
+                                                    <rect key="frame" x="62" y="36" width="530" height="2.5"/>
+                                                </progressView>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dCp-Ac-wS3">
+                                                    <rect key="frame" x="8" y="0.0" width="46" height="46.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="46" id="cPO-cm-IaL"/>
+                                                    </constraints>
+                                                    <state key="normal" title="Play"/>
+                                                    <connections>
+                                                        <action selector="playButtonTapped:" destination="2cX-2c-BS3" eventType="touchUpInside" id="DNe-ma-AIC"/>
+                                                    </connections>
+                                                </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gAC-BW-2td">
+                                                    <rect key="frame" x="62" y="0.0" width="530" height="28"/>
+                                                    <attributedString key="attributedText">
+                                                        <fragment content="Recording Label">
+                                                            <attributes>
+                                                                <color key="NSColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                <font key="NSFont" size="17" name="AvenirNext-Regular"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                    </attributedString>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progressViewStyle="bar" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="erF-9y-sg6">
-                                                    <rect key="frame" x="8" y="36" width="584" height="2.5"/>
-                                                </progressView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="erF-9y-sg6" firstAttribute="top" secondItem="gAC-BW-2td" secondAttribute="bottom" constant="8" id="Am1-Bl-y7H"/>
-                                                <constraint firstAttribute="leadingMargin" secondItem="gAC-BW-2td" secondAttribute="leading" id="KBM-1v-TfA"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="erF-9y-sg6" secondAttribute="bottom" constant="9" id="RgU-Ot-OU0"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="erF-9y-sg6" secondAttribute="trailing" id="VMm-6M-tfi"/>
-                                                <constraint firstAttribute="leadingMargin" secondItem="erF-9y-sg6" secondAttribute="leading" id="csI-ps-ASe"/>
-                                                <constraint firstItem="gAC-BW-2td" firstAttribute="top" secondItem="Oyn-gT-KaZ" secondAttribute="topMargin" constant="-8" id="l7g-82-1Lz"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="gAC-BW-2td" secondAttribute="trailing" id="l9s-iD-aPd"/>
+                                                <constraint firstItem="gAC-BW-2td" firstAttribute="leading" secondItem="dCp-Ac-wS3" secondAttribute="trailing" constant="8" id="3UT-X2-ptB"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="erF-9y-sg6" secondAttribute="trailing" id="4vX-0Z-w34"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="gAC-BW-2td" secondAttribute="trailing" id="6IF-fY-dqA"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="erF-9y-sg6" secondAttribute="bottom" constant="9" id="AE0-nB-j7n"/>
+                                                <constraint firstItem="gAC-BW-2td" firstAttribute="top" secondItem="Oyn-gT-KaZ" secondAttribute="topMargin" constant="-8" id="GDM-0K-wEG"/>
+                                                <constraint firstItem="erF-9y-sg6" firstAttribute="leading" secondItem="dCp-Ac-wS3" secondAttribute="trailing" constant="8" id="Mft-ZE-oZX"/>
+                                                <constraint firstItem="erF-9y-sg6" firstAttribute="top" secondItem="gAC-BW-2td" secondAttribute="bottom" constant="8" id="USt-9n-zAv"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="dCp-Ac-wS3" secondAttribute="bottom" id="Xzx-PN-ShT"/>
+                                                <constraint firstAttribute="leadingMargin" secondItem="dCp-Ac-wS3" secondAttribute="leading" id="dSy-kU-CVq"/>
+                                                <constraint firstItem="dCp-Ac-wS3" firstAttribute="top" secondItem="Oyn-gT-KaZ" secondAttribute="topMargin" constant="-8" id="qIg-Aa-Ebg"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="playButton" destination="dCp-Ac-wS3" id="oc0-bE-A4Y"/>
                                             <outlet property="progressView" destination="erF-9y-sg6" id="f54-XI-D7G"/>
                                             <outlet property="recordingLabel" destination="gAC-BW-2td" id="ikG-RK-EVo"/>
                                         </connections>

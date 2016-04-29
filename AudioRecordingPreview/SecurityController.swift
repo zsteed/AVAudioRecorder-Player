@@ -29,8 +29,7 @@ class SecurityController: NSObject {
         
         SecItemDelete(keyChainQuery as CFDictionaryRef)
         
-        let status: OSStatus = SecItemAdd(keyChainQuery as CFDictionaryRef, nil)
-        
+        let _: OSStatus = SecItemAdd(keyChainQuery as CFDictionaryRef, nil)
     }
     
     

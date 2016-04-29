@@ -27,9 +27,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
 
-//        NetworkController.uploadAuthData { (json) in
+//        NetworkController.uploadAuthData(NetworkController.toUploadDictionary, url: NetworkController.telenotesBaseURL) { (json) in
 //            
 //        }
+        
+//        NetworkController.getCredentialsFromAzure(NetworkController.headerFileAuthToken, url: NetworkController.azureBaseURL) { (json) in
+//            
+//        }
+        
         
         uploadButton.backgroundColor = UIColor.blueColor()
         AudioController.sharedInstance.checkHeadphones()
@@ -101,7 +106,19 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     @IBAction func uploadButtonTapped(sender: AnyObject) {
         
-        // display alert stating recording uploaded succuessfuly
+        let cellForRow = RecordingsController.sharedInstance.myButton
+        
+        let recording = RecordingsController.sharedInstance.recordings[cellForRow]
+        
+        AzureController.uploadBlobToAzure(recording, blobName: "Test UNO W/ Date: " + RecordingsController.sharedInstance.readableDate(NSDate())) { (success) in
+            if success {
+                
+            } else {
+                
+            }
+        }
+        
+        // TODO: - display alert stating recording uploaded succuessfuly
     }
 
     @IBAction func stopButtonTapped(sender: AnyObject) {

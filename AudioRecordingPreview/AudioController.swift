@@ -9,11 +9,7 @@
 import UIKit
 import AVFoundation
 
-// TODO: - check that I'm using, m4a for recording / sending files
-
-// TODO: - Check that I'm using settings on recorder dictionary / keys correctly
-
-class AudioController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
+class AudioController: NSObject {
 
     // MARK: - Properties
     
@@ -160,7 +156,6 @@ class AudioController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate 
             if let soundFile = soundFile {
                 recorder = try AVAudioRecorder(URL: soundFile, settings: settings)
                 if let recorder = recorder {
-                    recorder.delegate = self
                     recorder.prepareToRecord()
                     recorder.meteringEnabled = true
                 }
@@ -233,7 +228,6 @@ class AudioController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate 
         do {
             self.player = try AVAudioPlayer(contentsOfURL: url)
             if let player = player {
-                player.delegate = self
                 player.prepareToPlay()
                 player.play()
             }
@@ -245,32 +239,9 @@ class AudioController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate 
     
     
     
-    // MARK: - Audio Player Delegate
+
     
-    func audioPlayerDidFinishPlaying(player: AVAudioPlayer, successfully flag: Bool) {
-        
-        print("Finished playing audio")
-    }
-    
-    func audioPlayerDecodeErrorDidOccur(player: AVAudioPlayer, error: NSError?) {
-        if let error = error {
-            print("Error with player delegate \(#line) for error \(error.localizedDescription)")
-        }
-    }
-    
-    
-    // MARK: - Audio Recorder Delegate
-    
-    func audioRecorderDidFinishRecording(recorder: AVAudioRecorder, successfully flag: Bool) {
-        print("Finished Recording Audio")
-    }
-    
-    func audioRecorderEncodeErrorDidOccur(recorder: AVAudioRecorder, error: NSError?) {
-        if let error = error {
-            print("Error with recorder delegate \(#line) for error \(error.localizedDescription)")
-        }
-    }
-    
+
     
    
     

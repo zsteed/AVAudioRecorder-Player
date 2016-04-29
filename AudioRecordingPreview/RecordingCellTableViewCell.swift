@@ -7,12 +7,13 @@
 //
 
 import UIKit
+import AVFoundation
 
 protocol CustomCellDelegate {
     func cellTapped(cell:RecordingCellTableViewCell)
 }
 
-class RecordingCellTableViewCell: UITableViewCell {
+class RecordingCellTableViewCell: UITableViewCell, AVAudioPlayerDelegate {
 
     // MARK: - Outlets
     
@@ -27,9 +28,9 @@ class RecordingCellTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        //progressView.hidden = false
         progressView.setProgress(0.0, animated: false)
         playButton.setTitle("Play", forState: .Normal)
+
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
@@ -53,14 +54,15 @@ class RecordingCellTableViewCell: UITableViewCell {
             if player.playing {
                 player.pause()
                 myTimer.invalidate()
-                progressView.setProgress(Float(player.duration % 60), animated: false)
+                progressView.setProgress(Float(player.currentTime), animated: false)
                 playButton.setTitle("Play", forState: .Normal)
-            } else {
+            }  else {
                 playButton.setTitle("Pause", forState: .Normal)
                 AudioController.sharedInstance.play(RecordingsController.sharedInstance.recordings[cellForRow])
                 setProgressIndicator()
             }
         } else {
+            AudioController.sharedInstance.player?.delegate = self
             playButton.setTitle("Pause", forState: .Normal)
             AudioController.sharedInstance.play(RecordingsController.sharedInstance.recordings[cellForRow])
             setProgressIndicator()
@@ -88,8 +90,26 @@ class RecordingCellTableViewCell: UITableViewCell {
     
     
     
+    // MARK: - Audio Player Delegate
+    
+    func audioPlayerDidFinishPlaying(player: AVAudioPlayer, successfully flag: Bool) {
+        playButton.setTitle("Play", forState: .Normal)
+        print("Finished playing audio")
+    }
+    
+    func audioPlayerDecodeErrorDidOccur(player: AVAudioPlayer, error: NSError?) {
+        if let error = error {
+            print("Error with player delegate \(#line) for error \(error.localizedDescription)")
+        }
+    }
+    
+    
     
     
     
 
 }
+
+
+
+

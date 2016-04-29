@@ -18,6 +18,7 @@
 		2407F4361CD100A30076F7C4 /* Azure Storage Client Library.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2407F4351CD100A30076F7C4 /* Azure Storage Client Library.framework */; };
 		2407F4381CD100C00076F7C4 /* libxml2.2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2407F4371CD100C00076F7C4 /* libxml2.2.tbd */; };
 		2476D21E1CD28F37005DBB98 /* NetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2476D21D1CD28F37005DBB98 /* NetworkController.swift */; };
+		2476D2201CD2BB87005DBB98 /* SecurityController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2476D21F1CD2BB87005DBB98 /* SecurityController.swift */; };
 		24D2E6491CCE5477000FB3C6 /* RecordingCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D2E6481CCE5477000FB3C6 /* RecordingCellTableViewCell.swift */; };
 		24D2E64D1CCE5C68000FB3C6 /* RecordingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D2E64C1CCE5C68000FB3C6 /* RecordingsController.swift */; };
 		24D2E64F1CCE658A000FB3C6 /* AudioController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D2E64E1CCE658A000FB3C6 /* AudioController.swift */; };
@@ -59,6 +60,7 @@
 		2407F4371CD100C00076F7C4 /* libxml2.2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.2.tbd; path = usr/lib/libxml2.2.tbd; sourceTree = SDKROOT; };
 		2407F43B1CD104300076F7C4 /* AudioRecordingPreview-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AudioRecordingPreview-Bridging-Header.h"; sourceTree = "<group>"; };
 		2476D21D1CD28F37005DBB98 /* NetworkController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkController.swift; sourceTree = "<group>"; };
+		2476D21F1CD2BB87005DBB98 /* SecurityController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecurityController.swift; sourceTree = "<group>"; };
 		24D2E6481CCE5477000FB3C6 /* RecordingCellTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordingCellTableViewCell.swift; sourceTree = "<group>"; };
 		24D2E64C1CCE5C68000FB3C6 /* RecordingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordingsController.swift; sourceTree = "<group>"; };
 		24D2E64E1CCE658A000FB3C6 /* AudioController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioController.swift; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 				24011D771CC9155D003B29B3 /* ViewController.swift */,
 				24D2E64E1CCE658A000FB3C6 /* AudioController.swift */,
 				2476D21D1CD28F37005DBB98 /* NetworkController.swift */,
+				2476D21F1CD2BB87005DBB98 /* SecurityController.swift */,
 				2407F4331CD0FED80076F7C4 /* AzureController.swift */,
 				24D2E6481CCE5477000FB3C6 /* RecordingCellTableViewCell.swift */,
 				24D2E64C1CCE5C68000FB3C6 /* RecordingsController.swift */,
@@ -297,6 +300,7 @@
 				24D2E64D1CCE5C68000FB3C6 /* RecordingsController.swift in Sources */,
 				2476D21E1CD28F37005DBB98 /* NetworkController.swift in Sources */,
 				2407F4341CD0FED80076F7C4 /* AzureController.swift in Sources */,
+				2476D2201CD2BB87005DBB98 /* SecurityController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import AVFoundation
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, CustomCellDelegate {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, CustomCellDelegate, AVAudioRecorderDelegate {
 
     // MARK: - Outlets
     
@@ -25,10 +26,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        NetworkController.uploadAuthData { (json) in
-            
-        }
+
+//        NetworkController.uploadAuthData { (json) in
+//            
+//        }
         
         uploadButton.backgroundColor = UIColor.blueColor()
         AudioController.sharedInstance.checkHeadphones()
@@ -88,7 +89,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     
     @IBAction func recordButtonTapped(sender: AnyObject) {
-       AudioController.sharedInstance.record()
+        AudioController.sharedInstance.record()
+        AudioController.sharedInstance.recorder?.delegate = self
         recordButton.enabled = false
         stopButton.enabled = true
         pauseButton.enabled = true
@@ -174,6 +176,21 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             })
         }
     }
+    
+    
+    
+    // MARK: - Audio Recorder Delegate
+    
+    func audioRecorderDidFinishRecording(recorder: AVAudioRecorder, successfully flag: Bool) {
+        print("Finished Recording Audio")
+    }
+    
+    func audioRecorderEncodeErrorDidOccur(recorder: AVAudioRecorder, error: NSError?) {
+        if let error = error {
+            print("Error with recorder delegate \(#line) for error \(error.localizedDescription)")
+        }
+    }
+    
 }
 
 

@@ -18,7 +18,6 @@ class AzureController {
     let containerURL = "https://myaccount.blob.core.windows.net/mysampleioscontainer?sv=2015-02-21&st=2009-01-01&se=2100-01-01&sr=c&sp=rwdl&sig=mylongsig="
     var usingSAS = true
     
-
     
     // Shared Key / Only Use For Testing Purposes
 

@@ -84,7 +84,7 @@ class RecordingCellTableViewCell: UITableViewCell, AVAudioPlayerDelegate {
     
     func updateCellWithData(indexPath:NSIndexPath) {
         RecordingsController.sharedInstance.recordings[indexPath.row].lastPathComponent
-        self.recordingLabel.text = "\(RecordingsController.sharedInstance.readableDate(NSDate()))"
+        self.recordingLabel.text = "My Date: " + "\(indexPath.row + 1)"
         
     }
     

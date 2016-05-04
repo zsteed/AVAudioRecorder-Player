@@ -28,8 +28,10 @@ class NetworkController {
     
     static let telenotesBaseURL = "http://api.telenotes.com/api/login/TN_AuthenticateUser"
 
+    // Sample Data For Testing
     static let toUploadDictionary = ["MailBox" : 9246, "Password" : "Telenotes", "AuthCode" : "6AD90A48-B038-415A-8957-4F9848FCC8DD", "SyncDeviceName" : "Droid"]
     
+    // Retrives Access Token from Telenotes server, lasts 7 days then another will need to be requested
     static func uploadAuthData(uploadDictionary:[String:AnyObject], url:String, completion:(json:[String:AnyObject])->Void) {
         
         let request = NSMutableURLRequest(URL: NSURL(string: url)!)
@@ -68,8 +70,7 @@ class NetworkController {
     
     static let headerFileAuthToken = "C27244B34741D47C56F53688A629B41784F5D35960AC9283E4EDB05FD0F8FB4562865F6D2AECD72B750DDCA6919BCD2CBD10E56418AC6F281B9DB1843E7FBCFED905BF0D3F5853BBF60E2F571D1DBC6F12676745AD60F71D90CC0F3CC1BB216D68F9BF4650F27689B7BB90141C332B45"
     
-    // access token from telenotes is thrown on as a header, // Search - authorization header in http request
-
+    // retrives SAS from Azure
     
     static func getCredentialsFromAzure(headerFile:String, url:String, completion:(json:[String:AnyObject])->Void) {
         

@@ -21,7 +21,7 @@ let kSecAttrAccountValue = NSString(format: kSecAttrAccount)
 
 class SecurityController: NSObject {
     
-    func setPasscode(identifier:String, passcode:String) {
+    static func setPasscode(identifier:String, passcode:String) {
         
         let dataFromString:NSData = passcode.dataUsingEncoding(NSUTF8StringEncoding)!
         
@@ -33,7 +33,7 @@ class SecurityController: NSObject {
     }
     
     
-    func getPasscode(identifier:String) -> NSString? {
+    static func getPasscode(identifier:String) -> NSString? {
         
         let keychainQuery = NSDictionary(objects: [kSecclassGenericPasswordValue, identifier, kCFBooleanTrue, kSecMatchLimitOneValue],
                                          forKeys: [kSecClassValue, kSecAttrServiceValue, kSecReturnDataValue, kSecMatchLimitValue])

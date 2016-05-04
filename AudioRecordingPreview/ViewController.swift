@@ -21,21 +21,25 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
+    //MARK: - Properties
+    
     var timer = NSTimer()
     var progressTimer = NSTimer()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // MARK: - Returns Credentials to speak to Azure, token lasts 7 days
 //        NetworkController.uploadAuthData(NetworkController.toUploadDictionary, url: NetworkController.telenotesBaseURL) { (json) in
 //            
 //        }
         
+        // MARK: - Returns SAS and Azure Details
+        
 //        NetworkController.getCredentialsFromAzure(NetworkController.headerFileAuthToken, url: NetworkController.azureBaseURL) { (json) in
 //            
 //        }
-        
-        
+
         uploadButton.backgroundColor = UIColor.blueColor()
         AudioController.sharedInstance.checkHeadphones()
         AudioController.sharedInstance.notificationCheck()
@@ -105,20 +109,34 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     
     @IBAction func uploadButtonTapped(sender: AnyObject) {
-        
-        let cellForRow = RecordingsController.sharedInstance.myButton
-        
-        let recording = RecordingsController.sharedInstance.recordings[cellForRow]
-        
-        AzureController.uploadBlobToAzure(recording, blobName: "Test UNO W/ Date: " + RecordingsController.sharedInstance.readableDate(NSDate())) { (success) in
-            if success {
-                
-            } else {
-                
-            }
+        if checked == true {
+            
+            let cellForRow = RecordingsController.sharedInstance.myButton
+            let recording = RecordingsController.sharedInstance.recordings
+            
+            AzureController.addBlob("\(NSUUID().UUIDString)" + "\(1)", audioFile: recording[cellForRow], completion: { (success, error) in
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.uploadButton.setTitle("Uploading Audio. . .", forState: .Normal)
+                    if success {
+                        self.uploadButton.setTitle("Upload Audio", forState: .Normal)
+                        let alert = UIAlertController(title: "File Uploaded Successfully", message: nil, preferredStyle: .Alert)
+                        alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: nil))
+                        self.presentViewController(alert, animated: true, completion: nil)
+                    } else {
+                        self.uploadButton.setTitle("Upload Audio", forState: .Normal)
+                        let alert = UIAlertController(title: "File Failed To Upload", message: "\(error?.localizedDescription)", preferredStyle: .Alert)
+                        alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: nil))
+                        self.presentViewController(alert, animated: true, completion: nil)
+                    }
+                })
+            })
+        } else {
+            dispatch_async(dispatch_get_main_queue(), {
+                let alert = UIAlertController(title: "Please tap a recording to upload", message: nil, preferredStyle: .Alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: nil))
+                self.presentViewController(alert, animated: true, completion: nil)
+            })
         }
-        
-        // TODO: - display alert stating recording uploaded succuessfuly
     }
 
     @IBAction func stopButtonTapped(sender: AnyObject) {
@@ -136,6 +154,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
     }
     
+    //MARK: - Button Tapped Protocol / Delegate
     
     func cellTapped(cell: RecordingCellTableViewCell) {
         
@@ -148,6 +167,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     //MARK: - Table View Data Source
     
+    var checked = false
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return RecordingsController.sharedInstance.recordings.count
@@ -171,8 +191,28 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
+        if let cell = tableView.cellForRowAtIndexPath(indexPath) {
+            if checked == true {
+                print("\(RecordingsController.sharedInstance.myButton)")
+                checked = false
+                cell.accessoryType = .None
+            } else {
+                print("\(RecordingsController.sharedInstance.myButton)")
+
+                checked = true
+                cell.accessoryType = .Checkmark
+            }
+        }
+        
     }
     
+    func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        if let cell = tableView.cellForRowAtIndexPath(indexPath) {
+            checked = false
+            cell.accessoryType = .None
+        }
+    }
     
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {

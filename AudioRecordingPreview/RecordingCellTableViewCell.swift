@@ -21,16 +21,18 @@ class RecordingCellTableViewCell: UITableViewCell, AVAudioPlayerDelegate {
     @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var playButton: UIButton!
     
+    // MARK: - Properties
+    
     var progress = NSProgress()
     var timer = NSTimer()
     var myTimer = NSTimer()
     var buttonDelegate: CustomCellDelegate?
+    var paused = false
     
     override func awakeFromNib() {
         super.awakeFromNib()
         progressView.setProgress(0.0, animated: false)
         playButton.setTitle("Play", forState: .Normal)
-
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
@@ -38,7 +40,7 @@ class RecordingCellTableViewCell: UITableViewCell, AVAudioPlayerDelegate {
     }
     
     func setProgressIndicator() {
-        progressView.setProgress(0.0, animated: false)
+        progressView.setProgress(0.0, animated: true)
         myTimer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(updateProgress(_:)), userInfo: nil, repeats: true)
     }
     
@@ -52,19 +54,22 @@ class RecordingCellTableViewCell: UITableViewCell, AVAudioPlayerDelegate {
         
         if let player = AudioController.sharedInstance.player {
             if player.playing {
-                player.pause()
+                player.stop()
                 myTimer.invalidate()
-                progressView.setProgress(Float(player.currentTime), animated: false)
                 playButton.setTitle("Play", forState: .Normal)
+                dispatch_async(dispatch_get_main_queue(), { 
+                    self.progressView.progress = 0.0
+                })
             }  else {
-                playButton.setTitle("Pause", forState: .Normal)
+                playButton.setTitle("Stop", forState: .Normal)
                 AudioController.sharedInstance.play(RecordingsController.sharedInstance.recordings[cellForRow])
+                player.delegate = self
                 setProgressIndicator()
             }
         } else {
-            AudioController.sharedInstance.player?.delegate = self
-            playButton.setTitle("Pause", forState: .Normal)
+            playButton.setTitle("Stop", forState: .Normal)
             AudioController.sharedInstance.play(RecordingsController.sharedInstance.recordings[cellForRow])
+            AudioController.sharedInstance.player?.delegate = self
             setProgressIndicator()
         }
     }

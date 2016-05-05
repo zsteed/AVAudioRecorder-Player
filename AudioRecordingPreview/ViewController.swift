@@ -34,11 +34,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 //            
 //        }
         
-        // MARK: - Returns SAS and Azure Details
+        // MARK: - Returns SAS and Azure Details as JSON
         
 //        NetworkController.getCredentialsFromAzure(NetworkController.headerFileAuthToken, url: NetworkController.azureBaseURL) { (json) in
 //            
 //        }
+        
+        // MARK: - Adds message to Azure Queue
+        
+        NetworkController.addMessageToQueue([:]) { (success) in
+            
+        }
 
         uploadButton.backgroundColor = UIColor.blueColor()
         AudioController.sharedInstance.checkHeadphones()
@@ -103,7 +109,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         recordButton.enabled = false
         stopButton.enabled = true
         pauseButton.enabled = true
-        
         timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(timeIntervalsForTimer(_:)), userInfo: nil, repeats: true)
     }
     
@@ -114,7 +119,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             let cellForRow = RecordingsController.sharedInstance.myButton
             let recording = RecordingsController.sharedInstance.recordings
             
-            AzureController.addBlob("\(NSUUID().UUIDString)" + "\(1)", audioFile: recording[cellForRow], completion: { (success, error) in
+            NetworkController.addBlob("\(NSUUID().UUIDString)" + "\(1)", audioFile: recording[cellForRow], completion: { (success, error) in
                 dispatch_async(dispatch_get_main_queue(), {
                     self.uploadButton.setTitle("Uploading Audio. . .", forState: .Normal)
                     if success {
@@ -213,7 +218,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             cell.accessoryType = .None
         }
     }
-    
+        
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {

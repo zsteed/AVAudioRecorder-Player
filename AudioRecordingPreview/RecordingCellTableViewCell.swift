@@ -29,6 +29,8 @@ class RecordingCellTableViewCell: UITableViewCell, AVAudioPlayerDelegate {
     var buttonDelegate: CustomCellDelegate?
     var paused = false
     
+    //MARK: - System Functions
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         progressView.setProgress(0.0, animated: false)
@@ -39,10 +41,24 @@ class RecordingCellTableViewCell: UITableViewCell, AVAudioPlayerDelegate {
         super.setSelected(selected, animated: animated)
     }
     
+    // Progress Methods
+    
     func setProgressIndicator() {
         progressView.setProgress(0.0, animated: true)
         myTimer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(updateProgress(_:)), userInfo: nil, repeats: true)
     }
+    
+    func updateProgress(timer:NSTimer) {
+        if let player = AudioController.sharedInstance.player {
+            if progressView.progress < Float(player.duration % 60) {
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.progressView.setProgress(Float(player.duration % 60), animated: true)
+                })
+            }
+        }
+    }
+    
+    //MARK: - Button Tapped Functions
     
     @IBAction func playButtonTapped(sender: AnyObject) {
         
@@ -71,16 +87,6 @@ class RecordingCellTableViewCell: UITableViewCell, AVAudioPlayerDelegate {
             AudioController.sharedInstance.play(RecordingsController.sharedInstance.recordings[cellForRow])
             AudioController.sharedInstance.player?.delegate = self
             setProgressIndicator()
-        }
-    }
-    
-    func updateProgress(timer:NSTimer) {
-        if let player = AudioController.sharedInstance.player {
-            if progressView.progress < Float(player.duration % 60) {
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.progressView.setProgress(Float(player.duration % 60), animated: true)
-                })
-            }
         }
     }
 

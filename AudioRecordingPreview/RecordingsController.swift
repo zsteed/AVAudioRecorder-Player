@@ -23,13 +23,7 @@ class RecordingsController {
         let returnDate = dateFormatter.stringFromDate(date)
         return returnDate
     }
-    
-    func dateFormatForHTTP(convertDate:NSDate) ->String {
-        let dateformatter = NSDateFormatter()
-        dateformatter.setLocalizedDateFormatFromTemplate("EEE, dd MMMM yyy HH:mm:ss ZZZ")
-        dateformatter.timeZone = NSTimeZone(abbreviation: "UTC")
-        return dateformatter.stringFromDate(convertDate)
-    }
+
     
     
 }

@@ -22,7 +22,7 @@ class AudioController: NSObject {
     
     static let sharedInstance = AudioController()
     
-    // MARK: - View did load methods
+    // MARK: - View did load methods to implement
     
     func checkHeadphones() {
         let currentRoute = AVAudioSession.sharedInstance().currentRoute
@@ -147,11 +147,16 @@ class AudioController: NSObject {
         let documentDirectory = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0]
         self.soundFile = documentDirectory.URLByAppendingPathComponent(fileName)
         
-        let settings = [AVFormatIDKey:NSNumber(unsignedInt : UInt32(kAudioFormatAppleLossless)),
-                        AVEncoderAudioQualityKey : AVAudioQuality.Max.rawValue,
-                        AVEncoderBitRateKey : 320000,
-                        AVNumberOfChannelsKey: 2,
-                        AVSampleRateKey : 44100.0]
+        let settings = [AVFormatIDKey:NSNumber(unsignedInt: kAudioFormatLinearPCM),
+                        AVSampleRateKey:32000,AVNumberOfChannelsKey:1,
+                        AVEncoderAudioQualityKey:AVAudioQuality.Max.rawValue,
+                        AVLinearPCMBitDepthKey:16,
+                        AVLinearPCMIsBigEndianKey:false,
+                        AVLinearPCMIsFloatKey:false,
+                        AVEncoderBitRateKey:32000,
+                        AVEncoderBitDepthHintKey:16,
+                        AVEncoderBitRatePerChannelKey:16]
+        
         do {
             if let soundFile = soundFile {
                 recorder = try AVAudioRecorder(URL: soundFile, settings: settings)

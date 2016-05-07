@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Dqp-Vk-IU2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Dqp-Vk-IU2">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -63,20 +63,8 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bzy-Mw-gxY">
-                                <rect key="frame" x="0.0" y="552" width="600" height="48"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="48" id="WW4-kP-wJl"/>
-                                </constraints>
-                                <state key="normal" title="Upload Audio">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="uploadButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="d0P-rq-aBR"/>
-                                </connections>
-                            </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="55" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="3ge-7C-pfc">
-                                <rect key="frame" x="0.0" y="170" width="600" height="390"/>
+                                <rect key="frame" x="0.0" y="170" width="600" height="430"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="recorderCell" rowHeight="55" id="2cX-2c-BS3" customClass="RecordingCellTableViewCell" customModule="AudioRecordingPreview" customModuleProvider="target">
@@ -145,13 +133,10 @@
                             <constraint firstItem="xEF-D8-NtL" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="9DW-sT-gLP"/>
                             <constraint firstAttribute="trailingMargin" secondItem="3ge-7C-pfc" secondAttribute="trailing" constant="-20" id="CGY-I7-m0J"/>
                             <constraint firstItem="3ge-7C-pfc" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="H6r-lm-fDo"/>
-                            <constraint firstItem="bzy-Mw-gxY" firstAttribute="top" secondItem="3ge-7C-pfc" secondAttribute="bottom" constant="-8" id="SNg-8U-tz9"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="xEF-D8-NtL" secondAttribute="bottom" constant="426" id="ZbZ-NW-F4u"/>
                             <constraint firstItem="xEF-D8-NtL" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="ZzT-gg-CYA"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="bzy-Mw-gxY" secondAttribute="trailing" constant="-20" id="pfF-Lr-aqL"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="bzy-Mw-gxY" secondAttribute="bottom" id="qrZ-ri-hqF"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="3ge-7C-pfc" secondAttribute="bottom" id="gO8-3A-qkT"/>
                             <constraint firstAttribute="trailingMargin" secondItem="xEF-D8-NtL" secondAttribute="trailing" constant="-20" id="rrY-1W-1Eo"/>
-                            <constraint firstItem="bzy-Mw-gxY" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="sA6-ju-Pag"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="NbM-Cs-Yx9"/>
@@ -162,7 +147,6 @@
                         <outlet property="stopButton" destination="eNb-QU-D01" id="yX9-rm-Iwy"/>
                         <outlet property="tableView" destination="3ge-7C-pfc" id="aiQ-Le-iqZ"/>
                         <outlet property="timeLabel" destination="YFc-kV-yIs" id="TYc-SW-tYq"/>
-                        <outlet property="uploadButton" destination="bzy-Mw-gxY" id="iyU-mG-FYq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

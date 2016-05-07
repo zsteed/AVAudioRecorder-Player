@@ -14,10 +14,6 @@
 		24011D801CC9155D003B29B3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 24011D7E1CC9155D003B29B3 /* LaunchScreen.storyboard */; };
 		24011D8B1CC9155D003B29B3 /* AudioRecordingPreviewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24011D8A1CC9155D003B29B3 /* AudioRecordingPreviewTests.swift */; };
 		24011D961CC9155D003B29B3 /* AudioRecordingPreviewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24011D951CC9155D003B29B3 /* AudioRecordingPreviewUITests.swift */; };
-		2407F4361CD100A30076F7C4 /* Azure Storage Client Library.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2407F4351CD100A30076F7C4 /* Azure Storage Client Library.framework */; };
-		2407F4381CD100C00076F7C4 /* libxml2.2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2407F4371CD100C00076F7C4 /* libxml2.2.tbd */; };
-		2476D21E1CD28F37005DBB98 /* NetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2476D21D1CD28F37005DBB98 /* NetworkController.swift */; };
-		2476D2201CD2BB87005DBB98 /* SecurityController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2476D21F1CD2BB87005DBB98 /* SecurityController.swift */; };
 		24D2E6491CCE5477000FB3C6 /* RecordingCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D2E6481CCE5477000FB3C6 /* RecordingCellTableViewCell.swift */; };
 		24D2E64D1CCE5C68000FB3C6 /* RecordingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D2E64C1CCE5C68000FB3C6 /* RecordingsController.swift */; };
 		24D2E64F1CCE658A000FB3C6 /* AudioController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D2E64E1CCE658A000FB3C6 /* AudioController.swift */; };
@@ -54,11 +50,6 @@
 		24011D911CC9155D003B29B3 /* AudioRecordingPreviewUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AudioRecordingPreviewUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		24011D951CC9155D003B29B3 /* AudioRecordingPreviewUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecordingPreviewUITests.swift; sourceTree = "<group>"; };
 		24011D971CC9155D003B29B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2407F4351CD100A30076F7C4 /* Azure Storage Client Library.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "Azure Storage Client Library.framework"; path = "../Azure Storage Client Library.framework"; sourceTree = "<group>"; };
-		2407F4371CD100C00076F7C4 /* libxml2.2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.2.tbd; path = usr/lib/libxml2.2.tbd; sourceTree = SDKROOT; };
-		2407F43B1CD104300076F7C4 /* AudioRecordingPreview-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AudioRecordingPreview-Bridging-Header.h"; sourceTree = "<group>"; };
-		2476D21D1CD28F37005DBB98 /* NetworkController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkController.swift; sourceTree = "<group>"; };
-		2476D21F1CD2BB87005DBB98 /* SecurityController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecurityController.swift; sourceTree = "<group>"; };
 		24D2E6481CCE5477000FB3C6 /* RecordingCellTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordingCellTableViewCell.swift; sourceTree = "<group>"; };
 		24D2E64C1CCE5C68000FB3C6 /* RecordingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordingsController.swift; sourceTree = "<group>"; };
 		24D2E64E1CCE658A000FB3C6 /* AudioController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioController.swift; sourceTree = "<group>"; };
@@ -69,8 +60,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2407F4381CD100C00076F7C4 /* libxml2.2.tbd in Frameworks */,
-				2407F4361CD100A30076F7C4 /* Azure Storage Client Library.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -98,7 +87,6 @@
 				24011D891CC9155D003B29B3 /* AudioRecordingPreviewTests */,
 				24011D941CC9155D003B29B3 /* AudioRecordingPreviewUITests */,
 				24011D731CC9155D003B29B3 /* Products */,
-				2407F4391CD100CA0076F7C4 /* Azure Framework */,
 			);
 			sourceTree = "<group>";
 		};
@@ -119,14 +107,11 @@
 				24011D791CC9155D003B29B3 /* Main.storyboard */,
 				24011D771CC9155D003B29B3 /* ViewController.swift */,
 				24D2E64E1CCE658A000FB3C6 /* AudioController.swift */,
-				2476D21D1CD28F37005DBB98 /* NetworkController.swift */,
-				2476D21F1CD2BB87005DBB98 /* SecurityController.swift */,
 				24D2E6481CCE5477000FB3C6 /* RecordingCellTableViewCell.swift */,
 				24D2E64C1CCE5C68000FB3C6 /* RecordingsController.swift */,
 				24011D7C1CC9155D003B29B3 /* Assets.xcassets */,
 				24011D7E1CC9155D003B29B3 /* LaunchScreen.storyboard */,
 				24011D811CC9155D003B29B3 /* Info.plist */,
-				2407F43B1CD104300076F7C4 /* AudioRecordingPreview-Bridging-Header.h */,
 			);
 			path = AudioRecordingPreview;
 			sourceTree = "<group>";
@@ -147,15 +132,6 @@
 				24011D971CC9155D003B29B3 /* Info.plist */,
 			);
 			path = AudioRecordingPreviewUITests;
-			sourceTree = "<group>";
-		};
-		2407F4391CD100CA0076F7C4 /* Azure Framework */ = {
-			isa = PBXGroup;
-			children = (
-				2407F4371CD100C00076F7C4 /* libxml2.2.tbd */,
-				2407F4351CD100A30076F7C4 /* Azure Storage Client Library.framework */,
-			);
-			name = "Azure Framework";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -295,8 +271,6 @@
 				24011D761CC9155D003B29B3 /* AppDelegate.swift in Sources */,
 				24D2E6491CCE5477000FB3C6 /* RecordingCellTableViewCell.swift in Sources */,
 				24D2E64D1CCE5C68000FB3C6 /* RecordingsController.swift in Sources */,
-				2476D21E1CD28F37005DBB98 /* NetworkController.swift in Sources */,
-				2476D2201CD2BB87005DBB98 /* SecurityController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

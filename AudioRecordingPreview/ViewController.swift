@@ -13,7 +13,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
     // MARK: - Outlets
     
-    @IBOutlet weak var uploadButton: UIButton!
     @IBOutlet weak var recordButton: UIButton!
     @IBOutlet weak var pauseButton: UIButton!
     @IBOutlet weak var stopButton: UIButton!
@@ -26,30 +25,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var timer = NSTimer()
     var progressTimer = NSTimer()
     
+    //MARK: - System Functions
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // MARK: - Returns Credentials to speak to Azure, token lasts 7 days
-//        NetworkController.uploadAuthData(NetworkController.toUploadDictionary, url: NetworkController.telenotesBaseURL) { (json) in
-//            
-//        }
-        
-        // MARK: - Returns SAS and Azure Details as JSON
-        
-//        NetworkController.getCredentialsFromAzure(NetworkController.headerFileAuthToken, url: NetworkController.azureBaseURL) { (json) in
-//            
-//        }
-        
-        // MARK: - Adds message to Azure Queue
-        
-        NetworkController.addMessageToQueue([:]) { (success) in
-            
-        }
-
-        uploadButton.backgroundColor = UIColor.blueColor()
         AudioController.sharedInstance.checkHeadphones()
         AudioController.sharedInstance.notificationCheck()
-        
         stopButton.enabled = false
         pauseButton.enabled = false
         progressViewMeter.setProgress(0.0, animated: true)
@@ -112,37 +93,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(timeIntervalsForTimer(_:)), userInfo: nil, repeats: true)
     }
     
-    
-    @IBAction func uploadButtonTapped(sender: AnyObject) {
-        if checked == true {
-            
-            let cellForRow = RecordingsController.sharedInstance.myButton
-            let recording = RecordingsController.sharedInstance.recordings
-            
-            NetworkController.addBlob("\(NSUUID().UUIDString)" + "\(1)", audioFile: recording[cellForRow], completion: { (success, error) in
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.uploadButton.setTitle("Uploading Audio. . .", forState: .Normal)
-                    if success {
-                        self.uploadButton.setTitle("Upload Audio", forState: .Normal)
-                        let alert = UIAlertController(title: "File Uploaded Successfully", message: nil, preferredStyle: .Alert)
-                        alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: nil))
-                        self.presentViewController(alert, animated: true, completion: nil)
-                    } else {
-                        self.uploadButton.setTitle("Upload Audio", forState: .Normal)
-                        let alert = UIAlertController(title: "File Failed To Upload", message: "\(error?.localizedDescription)", preferredStyle: .Alert)
-                        alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: nil))
-                        self.presentViewController(alert, animated: true, completion: nil)
-                    }
-                })
-            })
-        } else {
-            dispatch_async(dispatch_get_main_queue(), {
-                let alert = UIAlertController(title: "Please tap a recording to upload", message: nil, preferredStyle: .Alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: nil))
-                self.presentViewController(alert, animated: true, completion: nil)
-            })
-        }
-    }
 
     @IBAction func stopButtonTapped(sender: AnyObject) {
         AudioController.sharedInstance.stop()
@@ -170,7 +120,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     
-    //MARK: - Table View Data Source
+    //MARK: - Table View Data Source / Delegate
     
     var checked = false
     

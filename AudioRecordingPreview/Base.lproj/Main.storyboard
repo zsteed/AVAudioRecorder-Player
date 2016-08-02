@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Dqp-Vk-IU2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Dqp-Vk-IU2">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -18,53 +18,46 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="xEF-D8-NtL">
-                                <rect key="frame" x="0.0" y="64" width="600" height="110"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="1i1-XL-ABL">
+                                <rect key="frame" x="0.0" y="64" width="600" height="75"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="9bz-4u-wt2">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="110"/>
-                                        <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="1i1-XL-ABL">
-                                                <rect key="frame" x="0.0" y="0.0" width="600" height="103"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pXf-og-g2G">
-                                                        <rect key="frame" x="0.0" y="0.0" width="150" height="103"/>
-                                                        <state key="normal" title="Record"/>
-                                                        <connections>
-                                                            <action selector="recordButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="AxG-rs-u3A"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tZI-QL-5iY">
-                                                        <rect key="frame" x="150" y="0.0" width="150" height="103"/>
-                                                        <state key="normal" title="Pause"/>
-                                                        <connections>
-                                                            <action selector="pauseButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="KOG-vQ-noH"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eNb-QU-D01">
-                                                        <rect key="frame" x="300" y="0.0" width="150" height="103"/>
-                                                        <state key="normal" title="Save"/>
-                                                        <connections>
-                                                            <action selector="stopButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Me9-Jq-YGN"/>
-                                                        </connections>
-                                                    </button>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YFc-kV-yIs">
-                                                        <rect key="frame" x="450" y="0.0" width="150" height="103"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                </subviews>
-                                            </stackView>
-                                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" misplaced="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Tqh-Yo-FNa">
-                                                <rect key="frame" x="0.0" y="103" width="600" height="7"/>
-                                            </progressView>
-                                        </subviews>
-                                    </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pXf-og-g2G">
+                                        <rect key="frame" x="0.0" y="0.0" width="150" height="75"/>
+                                        <state key="normal" title="Record"/>
+                                        <connections>
+                                            <action selector="recordButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="AxG-rs-u3A"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tZI-QL-5iY">
+                                        <rect key="frame" x="150" y="0.0" width="150" height="75"/>
+                                        <state key="normal" title="Pause"/>
+                                        <connections>
+                                            <action selector="pauseButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="KOG-vQ-noH"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eNb-QU-D01">
+                                        <rect key="frame" x="300" y="0.0" width="150" height="75"/>
+                                        <state key="normal" title="Save"/>
+                                        <connections>
+                                            <action selector="stopButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Me9-Jq-YGN"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YFc-kV-yIs">
+                                        <rect key="frame" x="450" y="0.0" width="150" height="75"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="75" id="gcH-ms-ViD"/>
+                                </constraints>
                             </stackView>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Tqh-Yo-FNa">
+                                <rect key="frame" x="0.0" y="142" width="600" height="2"/>
+                            </progressView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="55" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="3ge-7C-pfc">
-                                <rect key="frame" x="0.0" y="170" width="600" height="430"/>
+                                <rect key="frame" x="0.0" y="147" width="600" height="453"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="recorderCell" rowHeight="55" id="2cX-2c-BS3" customClass="RecordingCellTableViewCell" customModule="AudioRecordingPreview" customModuleProvider="target">
@@ -129,14 +122,16 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="3ge-7C-pfc" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="106" id="8th-cf-sWz"/>
-                            <constraint firstItem="xEF-D8-NtL" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="9DW-sT-gLP"/>
+                            <constraint firstItem="Tqh-Yo-FNa" firstAttribute="top" secondItem="1i1-XL-ABL" secondAttribute="bottom" constant="3" id="4T1-74-mUS"/>
                             <constraint firstAttribute="trailingMargin" secondItem="3ge-7C-pfc" secondAttribute="trailing" constant="-20" id="CGY-I7-m0J"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Tqh-Yo-FNa" secondAttribute="trailing" constant="-20" id="EBu-jU-RuR"/>
                             <constraint firstItem="3ge-7C-pfc" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="H6r-lm-fDo"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="xEF-D8-NtL" secondAttribute="bottom" constant="426" id="ZbZ-NW-F4u"/>
-                            <constraint firstItem="xEF-D8-NtL" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="ZzT-gg-CYA"/>
+                            <constraint firstItem="1i1-XL-ABL" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="OJn-yR-iQh"/>
+                            <constraint firstItem="1i1-XL-ABL" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="VOW-z9-NUy"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="3ge-7C-pfc" secondAttribute="bottom" id="gO8-3A-qkT"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="xEF-D8-NtL" secondAttribute="trailing" constant="-20" id="rrY-1W-1Eo"/>
+                            <constraint firstItem="Tqh-Yo-FNa" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="gu8-Lb-RSc"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="1i1-XL-ABL" secondAttribute="trailing" constant="-20" id="tRB-kF-61D"/>
+                            <constraint firstItem="3ge-7C-pfc" firstAttribute="top" secondItem="Tqh-Yo-FNa" secondAttribute="bottom" constant="3" id="ycz-Zf-zhy"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="NbM-Cs-Yx9"/>
@@ -156,7 +151,7 @@
         <!--Navigation Controller-->
         <scene sceneID="RsU-fD-97A">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Dqp-Vk-IU2" sceneMemberID="viewController">
+                <navigationController id="Dqp-Vk-IU2" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="LfD-2G-ptA">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
